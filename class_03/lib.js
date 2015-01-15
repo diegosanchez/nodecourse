@@ -3,6 +3,8 @@ Name: $_$
 Version: 0.0.1
 */
 
+
+
 (function(){
 	function addVersion (to, version) {
 		to.version = to.version || function () {
@@ -38,6 +40,7 @@ Version: 0.0.1
 	}
 	addVersion(Array.prototype.max, "0.0.1");
 
+/*
 	Array.prototype.forEach = function(callback) {
 		for(var x=0; x < this.length; x++) {
 			var r = callback(this[x]);
@@ -47,11 +50,12 @@ Version: 0.0.1
 		return this;
 	};
 	addVersion(Array.prototype.forEach, "0.0.1");
-
+*/
 	Array.prototype.last = function() {
 		return this[this.length-1];
 	};
 	addVersion(Array.prototype.last, "0.0.1");
+
 
 	/***
 	* if data is an array then add each element of data to this, otherwise add data 
@@ -92,4 +96,53 @@ Version: 0.0.1
 
 		return result;
 	}
+
+	/***
+	* This function will dump object properties
+	*/
+	Object.prototype.union = function(obj) {
+		var _ = function (source, dest) {
+			for( var k in source) {
+				if ( source[k].isObject() ) {
+					dest[k] = {};
+					_( source[k], dest[k]);
+				}
+				else {
+					dest[k] = source[k];
+				}
+			}
+		};
+
+		_(obj,this);
+
+		return this;
+	};
+
+	Object.prototype.dump = function() {
+		var self = this;
+		Object.keys(self).forEach( function (e) {
+
+			if ( self[e].isObject() ) {
+				self[e].dump();
+				return self;
+			}
+
+			console.log ( "key - value:", e, self[e]);
+		})
+	};
+
+
 })();
+
+var obj = {
+   a: 1
+  ,b: []
+  ,c: { 
+       d:5
+       ,e:6
+       ,f:{
+          _a: "javascript"
+    ,_b: "node.js"
+        }
+   }
+  };
