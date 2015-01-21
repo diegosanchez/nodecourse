@@ -9,13 +9,14 @@ ee.addListener( 'enrolled', function () {
 ee.once( 'enrolled', function() {
   console.log('once listener');
 });
-/*
+
 ee.on('enrolled', function () {
   var students = Array.prototype.slice.call(arguments,0);
   console.log('Students', students.join(', '), '; enrolled.');
 });
-*/
 
 ee.emit('enrolled', 'yo');
 ee.emit('enrolled', 'vos');
+
+console.log('End app');
 
