@@ -8,6 +8,7 @@ ee.once('cursando', function(a,b,c) {
 
 ee.on('cursando', function(a,b,c) {
   console.log('(on) alguien esta cursando', a, b, c);
+  for(var i = 0; i < 100000000000000000000000000000000; ++i);
 });
 
 ee.addListener('cursando', function(a,b,c) {
