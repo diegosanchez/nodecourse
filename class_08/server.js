@@ -1,8 +1,7 @@
 var http = require('http');
+var getFBUser = require('./facebook_api.js').getFBUser
 
 var server = http.createServer( handler );
-
-
 server.listen( 3000 );
 
 function handler(req, res) {
@@ -13,18 +12,9 @@ function handler(req, res) {
     res.end(data + '\n');
   }
 
-  var url = 'http://graph.facebook.com' + req.url;
-
   if ( req.method == "GET" ) {
-    http.get(url, function (resFb) { 
-      var faceBookResponse = "";
-      resFb.on('data', function (d) {
-          faceBookResponse += d;
-      });
-
-      resFb.on('end', function () {
-        send(faceBookResponse);
-      });
+    getFBUser( req.url, function ( person ) {
+      send(person);
     });
   };
 
