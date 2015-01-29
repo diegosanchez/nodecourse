@@ -1,5 +1,6 @@
 var express = require('express')
 var app = express()
+var GoogleApi = require('./google_api.js');
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
@@ -12,8 +13,8 @@ app.post("/", function(req, res){
 });
 
 app.get("/news", function(req, res){
-    var key = req.query.key || "node.js";
-   console.log("Quieren buscar noticias sobre: ", key);
+
+  GoogleApi.search(req.url,
     res.send("buscando...");
 });
 
